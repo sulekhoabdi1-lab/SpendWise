@@ -9,12 +9,14 @@
     <script src="script.js" defer></script>
 </head>
 <body>
+
     <header>
         <h1>SpendWise</h1>
         <p>Track Your Money, Manage Your Future</p>
     </header>
 
     <main class="container">
+
         <section class="welcome">
             <h2>Welcome to SpendWise</h2>
             <p>Manage your budget and track your spending easily.</p>
@@ -38,15 +40,55 @@
         </section>
 
         <section class="input-section">
-            <h2>Budget Calculator</h2>
-            <p>Click below to enter your budget and expenses.</p>
-            <button id="startButton">Enter Budget Information</button>
-            <p id="message">Your results will appear here.</p>
+            <h2>Set Your Budget</h2>
+
+            <form id="budgetForm">
+                <input
+                    type="number"
+                    id="budgetInput"
+                    placeholder="Enter your budget (KES)"
+                    min="1"
+                    required
+                >
+                <button type="submit">Set Budget</button>
+            </form>
         </section>
+
+        <section class="input-section">
+            <h2>Add an Expense</h2>
+
+            <form id="expenseForm">
+                <input
+                    type="text"
+                    id="expenseName"
+                    placeholder="Expense name"
+                    required
+                >
+
+                <input
+                    type="number"
+                    id="expenseAmount"
+                    placeholder="Expense amount (KES)"
+                    min="1"
+                    required
+                >
+
+                <button type="submit">Add Expense</button>
+            </form>
+        </section>
+
+        <section class="expense-section">
+            <h2>Your Expenses</h2>
+            <ul id="expenseList"></ul>
+        </section>
+
+        <p id="message">Welcome to SpendWise!</p>
+
     </main>
 
     <footer>
         <p>SpendWise | Power Learn Project</p>
     </footer>
+
 </body>
 </html>
