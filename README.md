@@ -1,67 +1,64 @@
+SpendWise - Budget Tracker
 
-# SpendWise - Budget Tracker
+Project Description
 
-## Project Description
+SpendWise is a simple budget tracking application that helps users manage their money, record expenses, and monitor their remaining balance.
 
-SpendWise is a simple budget tracking application that helps users manage their money. It allows users to enter their total budget and expenses and calculates the remaining balance.
+Features
 
-## JavaScript Concepts Implemented
+- Set a personal budget.
+- Add expenses with names and amounts.
+- View total budget.
+- View total expenses.
+- Calculate remaining balance automatically.
+- Delete expenses.
+- Validate user input.
+- Display helpful messages.
 
-This project demonstrates the following JavaScript concepts:
+Technologies Used
 
-- Variables
-- Data types
-- User input using prompt()
-- Arithmetic calculations
-- Functions
-- DOM manipulation
-- Event listeners
-- Console output
-- Input validation
+- HTML5
+- CSS3
+- JavaScript
+- GitHub
+- Netlify
 
-## How Variables Are Used
+GitHub Repository
 
-The application uses variables to store the user's budget, expenses, and remaining balance.
+https://github.com/sulekhoabdi1-lab/SpendWise
 
-The `let` keyword is used for values that can change, while `const` is used for values that should not be reassigned.
+Live Website
 
-## How User Input Is Collected
+https://spendwise-budget-tracker1.netlify.app
 
-JavaScript `prompt()` is used to ask users to enter their total budget and expenses.
+Deployment Process
 
-The `Number()` function converts the input values into numbers.
+1. Created the SpendWise project files in GitHub.
+2. Connected the GitHub repository to Netlify.
+3. Selected the main branch for deployment.
+4. Enabled automatic publishing from the main branch.
+5. Netlify provides a live website for the project.
 
-## How Calculations Are Performed
+Challenges Encountered
 
-The application calculates the remaining balance by subtracting total expenses from the total budget.
+One challenge was connecting the GitHub repository to Netlify and making sure the correct project was deployed. I also needed to understand how automatic deployment works.
 
-**Remaining Balance = Budget - Expenses**
+Lessons Learned
 
-## How Functions Organize the Code
+- How to use GitHub to manage project files.
+- How to deploy a website using Netlify.
+- How to connect GitHub with Netlify.
+- How automatic deployment works.
+- How HTML, CSS, and JavaScript work together to build an interactive application.
 
-The `calculateBalance()` function calculates the remaining balance.
+How to Run the Project
 
-The `formatMoney()` function formats amounts in Kenyan Shillings.
+1. Download or clone the GitHub repository.
+2. Open the index.html file in a web browser.
+3. Set your budget.
+4. Add your expenses.
+5. Track your remaining balance.
 
-The `getBudgetInformation()` function collects user input, validates information, performs calculations, and displays results.
+Author
 
-## Console Output
-
-The application displays clearly labeled results in the browser console, including:
-
-- Total Budget
-- Total Expenses
-- Remaining Balance
-
-## How to Run the Project
-
-1. Open the project repository.
-2. Open `index.html` in a web browser.
-3. Click the Enter Budget Information button.
-4. Enter your budget and expenses.
-5. View the calculated results on the webpage.
-6. Open the browser console to see the budget summary.
-
-## Author
-
-Power Learn Project - Web Development Fundamentals
+SpendWise - Power Learn Project
