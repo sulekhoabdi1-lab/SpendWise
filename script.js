@@ -1,90 +1,127 @@
 
-// SpendWise Application Variables
-
 let budget = 0;
-let expenses = 0;
-let remainingBalance = 0;
+let expenses = [];
 
-// Function to calculate the remaining balance
+const budgetForm = document.getElementById("budgetForm");
+const budgetInput = document.getElementById("budgetInput");
+const expenseForm = document.getElementById("expenseForm");
+const expenseName = document.getElementById("expenseName");
+const expenseAmount = document.getElementById("expenseAmount");
+const expenseList = document.getElementById("expenseList");
 
-function calculateBalance(budget, expenses) {
-    return budget - expenses;
+const budgetDisplay = document.getElementById("budget");
+const expensesDisplay = document.getElementById("expenses");
+const balanceDisplay = document.getElementById("balance");
+const message = document.getElementById("message");
+
+// Update dashboard
+function updateDashboard() {
+    let totalExpenses = 0;
+
+    expenses.forEach(function(expense) {
+        totalExpenses += expense.amount;
+    });
+
+    let remainingBalance = budget - totalExpenses;
+
+    budgetDisplay.textContent = "KES " + budget.toLocaleString();
+    expensesDisplay.textContent = "KES " + totalExpenses.toLocaleString();
+    balanceDisplay.textContent = "KES " + remainingBalance.toLocaleString();
 }
 
-// Function to format money in Kenyan Shillings
+// Display expenses
+function displayExpenses() {
+    expenseList.innerHTML = "";
 
-function formatMoney(amount) {
-    return "KES " + amount.toLocaleString("en-KE");
+    expenses.forEach(function(expense, index) {
+        const listItem = document.createElement("li");
+
+        const expenseText = document.createElement("span");
+        expenseText.textContent =
+            expense.name + " - KES " + expense.amount.toLocaleString();
+
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+        deleteButton.type = "button";
+
+        deleteButton.addEventListener("click", function() {
+            expenses.splice(index, 1);
+            displayExpenses();
+            updateDashboard();
+            message.textContent = "Expense deleted successfully!";
+        });
+
+        listItem.appendChild(expenseText);
+        listItem.appendChild(deleteButton);
+
+        expenseList.appendChild(listItem);
+    });
 }
 
-// Function to collect information using JavaScript prompts
+// Set budget
+budgetForm.addEventListener("submit", function(event) {
+    event.preventDefault();
 
-function getBudgetInformation() {
-    const budgetInput = prompt("Enter your total budget in KES:");
+    const newBudget = Number(budgetInput.value);
 
-    if (budgetInput === null || budgetInput.trim() === "") {
-        alert("Please enter a valid budget.");
+    if (newBudget <= 0) {
+        message.textContent = "Please enter a valid budget.";
         return;
     }
 
-    const expensesInput = prompt("Enter your total expenses in KES:");
+    const totalExpenses = expenses.reduce(function(total, expense) {
+        return total + expense.amount;
+    }, 0);
 
-    if (expensesInput === null || expensesInput.trim() === "") {
-        alert("Please enter valid expenses.");
+    if (newBudget < totalExpenses) {
+        message.textContent = "Your budget cannot be less than your expenses.";
         return;
     }
 
-    budget = Number(budgetInput);
-    expenses = Number(expensesInput);
+    budget = newBudget;
 
-    // Validate user input
+    updateDashboard();
 
-    if (
-        !Number.isFinite(budget) ||
-        !Number.isFinite(expenses) ||
-        budget < 0 ||
-        expenses < 0
-    ) {
-        alert("Please enter valid positive numbers.");
+    message.textContent = "Your budget has been set successfully!";
+    budgetInput.value = "";
+});
+
+// Add expense
+expenseForm.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const name = expenseName.value.trim();
+    const amount = Number(expenseAmount.value);
+
+    if (name === "" || amount <= 0) {
+        message.textContent = "Please enter a valid expense.";
         return;
     }
 
-    // Calculate remaining balance
-
-    remainingBalance = calculateBalance(budget, expenses);
-
-    // Display results on the webpage
-
-    document.getElementById("budget").textContent =
-        formatMoney(budget);
-
-    document.getElementById("expenses").textContent =
-        formatMoney(expenses);
-
-    document.getElementById("balance").textContent =
-        formatMoney(remainingBalance);
-
-    // Display a message
-
-    if (remainingBalance < 0) {
-        document.getElementById("message").textContent =
-            "Warning! Your expenses are greater than your budget.";
-    } else {
-        document.getElementById("message").textContent =
-            "Your budget has been calculated successfully!";
+    if (budget <= 0) {
+        message.textContent = "Please set your budget first.";
+        return;
     }
 
-    // Display results in the browser console
+    const totalExpenses = expenses.reduce(function(total, expense) {
+        return total + expense.amount;
+    }, 0);
 
-    console.log("SPENDWISE BUDGET SUMMARY");
-    console.log("Total Budget: " + formatMoney(budget));
-    console.log("Total Expenses: " + formatMoney(expenses));
-    console.log("Remaining Balance: " + formatMoney(remainingBalance));
-}
+    if (totalExpenses + amount > budget) {
+        message.textContent = "This expense is greater than your remaining balance.";
+        return;
+    }
 
-// Event listener for the button
+    expenses.push({
+        name: name,
+        amount: amount
+    });
 
-document.getElementById("startButton").addEventListener(
-    "click",
-    getBudgetInformation
-);
+    displayExpenses();
+    updateDashboard();
+
+    message.textContent = "Expense added successfully!";
+
+    expenseName.value = "";
+    expenseAmount.value = "";
+});
